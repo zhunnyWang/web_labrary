@@ -1,0 +1,8 @@
+class MPromise {
+    constructor() {
+
+    }
+    then() {
+
+    }
+}

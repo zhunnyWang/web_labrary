@@ -2,45 +2,45 @@
  * 默认值
  */
 //es5的用法,不能识别对应的布尔值为false的值
-// function hi(x, y) {
-//     y = y || 1;
-//     return x + y;
-// }
+function hi(x, y) {
+    y = y || 1;
+    return x + y;
+}
 
-// console.log(hi(3))
-// console.log(hi(3, ''))
+console.log(hi(3))
+console.log(hi(3, ''))
 
 //es6 默认值直接写在参数定义的后边
 
-// function hi(x, y = 1) {
-//     return x + y;
-// }
-// console.log(hi(3))
-// console.log(hi(3, 0))
+function hi(x, y = 1) {
+    return x + y;
+}
+console.log(hi(3))
+console.log(hi(3, 0))
 
 //与解构赋值默认值一起用
-// function foo({ x, y = 5 }) {
-//     console.log(x, y)
-// }
-// foo({})
-// foo({ x: 1 })
-// foo({ x: 1, y: 3 })
+function foo({ x, y = 5 }) {
+    console.log(x, y)
+}
+foo({})
+foo({ x: 1 })
+foo({ x: 1, y: 3 })
 
 // //双重默认值
-// function fecth(url, { method = 'GET' } = {}) {
-//     console.log(method);
-// }
-// fecth('http://hello.com')
+function fecth(url, { method = 'GET' } = {}) {
+    console.log(method);
+}
+fecth('http://hello.com')
 
 //两种双重默认值的区别
 
-// function m1({ x = 0, y = 0 } = {}) {
-//     console.log([x, y])
-// }
+function m1({ x = 0, y = 0 } = {}) {
+    console.log([x, y])
+}
 
-// function m2({ x, y } = { x: 0, y: 0 }) {
-//     console.log([x, y])
-// }
+function m2({ x, y } = { x: 0, y: 0 }) {
+    console.log([x, y])
+}
 
 /**
  * rest参数，用于获取函数的多余参数，不需要使用arguments对象，
@@ -48,42 +48,42 @@
  * rest参数之后不能再有其他参数
  */
 
-// function add(...rest) {
-//     let sum = 0;
-//     for (let item of rest) {
-//         sum += item;
-//     }
-//     return sum;
-// }
+function add(...rest) {
+    let sum = 0;
+    for (let item of rest) {
+        sum += item;
+    }
+    return sum;
+}
 
-// console.log(add(1, 2, 3, 4, 5, 6))
+console.log(add(1, 2, 3, 4, 5, 6))
 
 /**
  * 箭头函数
  * 如果箭头函数不需要参数或需要多个参数，就用圆括号代表参数部分
  */
 
-// const f = () => 'helloworld';
-// console.log(f());
+const f = () => 'helloworld';
+console.log(f());
 
 //如果箭头函数的代码块多于一条语句，就是用大括号将其括起来并使用return 返回
 
-// const sum = (a, b) => {
-//     const add = a + b;
-//     return add;
-// }
+const sum = (a, b) => {
+    const add = a + b;
+    return add;
+}
 
-// console.log(sum(1, 1));
+console.log(sum(1, 1));
 
 //如果箭头函数直接返回一个对象
 
-// const obj = () => ({ a: 1, b: 2 })
+const obj = () => ({ a: 1, b: 2 })
 
-// console.log(obj());
+console.log(obj());
 
 //箭头函数可以简化回调函数
-// const arr = [1, 2, 3].map(x => x * x)
-// console.log(arr);
+const arr = [1, 2, 3].map(x => x * x)
+console.log(arr);
 
 /**
  * 箭头函数使用时的注意事项
