@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>defineProperty</title>
+</head>
+
+<body>
+  <div id="app">
+    <p id="name"></p>
+  </div>
+
+  <script>
+    const obj = {};
+    Object.defineProperty(obj, 'name', {
+      get() {
+        return document.querySelector('#name').innerHTML;
+      },
+      set(value) {
+        document.querySelector('#app').innerHTML = value;
+      }
+    })
+    obj.name = 'zhunny';
+    setTimeout(() => {
+      obj.name = 'wang'
+    }, 2000)
+  </script>
+</body>
+
+</html>
