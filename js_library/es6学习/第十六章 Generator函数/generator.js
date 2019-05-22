@@ -94,7 +94,7 @@ for (let [key, value] of objectEntries(myObj)) {
  * Gernerator.prototype.throw ,该函数返回的遍历器对象又一个throw方法，可以在函数体外抛出错误，然后在Generator函数体内捕获。
  * 可以在函数体外抛出错误，然后在Generator函数体内捕获
  * Gernerator.prototype.return ，可以返回给定的值，并终结Generator函数的遍历
- * yield* :在Generator中调用另一个Generator函数
+ * yield* :在Generator中调用另一个Generator函数,yield*后面的Generator函数不过是for...of的一种简写方式
  */
 
 function* inner() {
@@ -113,3 +113,14 @@ console.log(star.next())
 console.log(star.next())
 console.log(star.next())
 console.log(star.next())
+
+
+/**
+ * Generator函数的异步应用
+ * 异步：一个任务不是连续完成，可以理解为任务被分成两段，先执行第一段，然后转而执行其他任务，等做好准备后再回头执行第二段
+ * 回调函数，就是把任务的第二段单独写在一个函数里面，等到重新执行这个任务时便直接调用这个函数。回调地狱。
+ * promise：回调函数的改进，使用then方法以后，异步任务的两段执行更清晰了，控制反转再反转。问题是代码冗余，then的堆积。
+ * Generator：yield命令是异步两个阶段的分界线，遇到yield命令就暂停，等到执行权返回，再从暂停的地方继续向后执行。代码的写法非常像同步操作，如果去掉yield，几乎一模一样。
+ * Generator函数将异步操作表示的很简洁，但是流程管理不方便，Thunk函数可以自动执行Generator函数。前提是跟yield命令后面的必须是Thunk函数，这是回调函数模式。
+ * 也可以将异步操作包装成Promise对象，用then方法教回执行权。即Promise对象的自动执行器。
+ */

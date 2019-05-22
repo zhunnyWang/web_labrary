@@ -22,12 +22,12 @@ class Pointc {
     this.y = y
   }
   toString () {
-    return `(${this.x},${this.y})`
+    return this
   }
 }
 
 const p2 = new Pointc(1, 2)
-console.log(p2.toString())
+console.log(p2.toString() === p2)
 
 
 /**
@@ -144,7 +144,8 @@ console.log(dess)
 /**
  * 类相当于实例的原型，所有在类中定义的方法都会被实例继承。如果在一个方法前加上static关键字，就表示该方法不会被实例继承，而是直接通过类调用。
  * 称为静态方法,父类的静态方法可以被子类继承
- * 静态属性指的是Class本身的属性，Class.propname。而不是定义在实例对象this上的属性，目前没有
+ * 静态属性指的是Class本身的属性，Class.propname。而不是定义在实例对象this上的属性，目前只有提案
+ * 实例属性目前只能在constructor中定义，提案里可以用等式写在类中
  */
 
 class Bar {
@@ -153,3 +154,17 @@ class Bar {
   }
 }
 Bar.Hello()
+
+/**
+ * new.target属性，返回new命令所作用的构造函数
+ * 可以保证构造函数只能通过new命令调用
+ * 子类继承父类时new.target会返回子类
+ */
+
+function Person (name) {
+  if (new.target === Person) {
+    this.name = name;
+  } else {
+    throw new Error('必须使用new生成实例')
+  }
+}
