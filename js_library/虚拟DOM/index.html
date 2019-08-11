@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="vdom.js"></script>
+  <style>
+    .primary {
+      font-size: 20px;
+      color: yellowgreen
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app"></div>
+  <!--
+    <div>
+      <p style="color: red">vdom</p>
+      <ul>
+        <li key="1" @click="alert(1)">a</li>
+        <li key="2" class="primary">b</li>
+        <li key="3">c</li>
+        <li key="4" style="color: yellow">d</li>
+      </ul>
+    </div>
+    --->
+  <script>
+    //createElement 第一次创建真实dom，渲染render，挂载mount
+    //第二次 的时候，通过响应式收集一波变化，然后用diff对比两个js对象，即虚拟dom，patch替换变化了节点，
+    //找出最少的变化，之后再去更新真实的dom
+
+    //1.html用js对象来描述，即为虚拟dom
+    //react和vue中虚拟dom都是有由JSX/模版template来创建，它们允许我们用html的语法来描述一个虚拟dom，
+    //webpack里面的loder帮我们将其转换为一个半成品，然后再通过提供的新建虚拟dom的方法（react：createElement，以及Vue中的h）最终生成一个虚拟dom，然后react/vue拿到这个虚拟dom来渲染页面
+    //我们现在实现的话，自己需要手动写一个vdom的js对象，有点难受 
+    //写一个列表是为了体现虚拟dom中最需要性能优化的地方，即两个列表之间对比差别的时候。
+    //createElement和render现在为止只是首次渲染
+    const vnode = createElement('div', {}, [
+      createElement('p', { style: { color: 'red' } }, 'vdom'),
+      createElement('ul', {}, [
+        createElement('li', { style: { color: 'red' }, key: '1' }, 'a'),
+        createElement('li', { key: '2', class: 'primary' }, 'b'),
+        createElement('li', { key: '3' }, 'c'),
+        createElement('li', { '@click': () => { alert(1) }, key: '4' }, 'd'),
+        createElement('li', { key: '5' }, 'e'),
+      ])
+    ])
+    //模拟一下第二次更新结构成如下结构：
+    const vnode2 = createElement('div', {}, [
+      createElement('p', { style: { color: 'red' } }, 'haha'),
+      createElement('ul', {}, [
+        createElement('li', { key: '2', class: 'primary' }, 'b'),
+        createElement('li', { style: { color: 'red' }, key: '1' }, 'a'),
+        createElement('li', { key: '3' }, 'c'),
+        createElement('li', { key: '5' }, 'e'),
+        createElement('li', { key: '6' }, 'f'),
+        createElement('li', { '@click': () => { alert(2) }, key: '4' }, 'd'),
+        createElement('li', { class: 'primary', key: '7' }, 'g'),
+      ])
+    ])
+    render(vnode, document.getElementById('app'))
+
+    //模拟一下更新操作，render时会判断是否是首次渲染，不是首次，走diff流程
+    setTimeout(() => {
+      render(vnode2, document.getElementById('app'))
+    }, 1000);
+    console.log(vnode)
+  </script>
+</body>
+
+</html>
