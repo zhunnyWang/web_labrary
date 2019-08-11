@@ -180,6 +180,12 @@ function patchChildren (
         // 新老都是数组
         case childType.MULTIPLE:
           console.log('新老都是数组')
+          let lastIndex = 0
+          for (let i = 0; i < nextChildren.length; i++) {
+            let nextVnode = nextChildren[i]
+            let j = 0
+            for (j; j < prevChildren.length; j++) {}
+          }
           break
         case childType.EMPTY:
           prevChildren.forEach(child => {
